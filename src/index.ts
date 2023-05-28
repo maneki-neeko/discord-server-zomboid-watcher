@@ -6,6 +6,7 @@ import ServerService from './repository/battle_metrics/server/impl/ServerService
 import DiscordService from './repository/discord/impl/DiscordServiceImpl';
 
 import { ServerStatus } from './repository/battle_metrics/models/Server';
+import ClientEvents from './utils/ClientEvents';
 
 dotenv.config();
 
@@ -25,7 +26,7 @@ export default class Main {
   private discordService: DiscordService;
 
   public async start() {
-    this.client.on('ready', async () => {
+    this.client.on(ClientEvents.READY, async () => {
       console.log(`Logged in as ${this.client.user?.tag}!`);
 
       const serverInfo = await this.serverService.getServerById(this.ZOMBOID_SERVER_ID);
