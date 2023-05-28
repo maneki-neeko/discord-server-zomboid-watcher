@@ -1,32 +1,29 @@
 import axios from 'axios';
-import { Client, Guild, Intents } from 'discord.js';
-import dotenv from 'dotenv';
+import { Client, Guild, Intents, PartialTypes } from 'discord.js';
 import { Inject } from 'typescript-ioc';
+const dotenv = require('dotenv');
 
-import ServerService from './repository/battle_metrics/server/ServerService';
-import { ServerStatus } from './repository/battle_metrics/models/ServerAttributes';
+import ServerService from './repository/battle_metrics/server/impl/ServerServiceImpl';
+import { ServerStatus } from './repository/battle_metrics/models/Server';
 
 dotenv.config();
 
 export default class Main {
   private readonly client: Client;
 
-  private readonly CHANNEL_ID = '1111855897493372978';
+  private readonly CHANNEL_ID = '1112241335957721159';
   private readonly SERVER_ID = '825085735718879272';
   private readonly ZOMBOID_SERVER_ID = "20718872";
+  private readonly INTENTS = [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.MESSAGE_CONTENT]
+  private readonly PARTIALS: PartialTypes[] = ['CHANNEL'];
 
   @Inject
   private serverService: ServerService;
 
-
   constructor() {
     this.client = new Client({
-      intents: [
-        Intents.FLAGS.GUILDS,
-        Intents.FLAGS.GUILD_MESSAGES,
-        Intents.FLAGS.MESSAGE_CONTENT,
-      ],
-      partials: ['CHANNEL'],
+      intents: this.INTENTS,
+      partials: this.PARTIALS,
     });
 
     this.start();
@@ -54,9 +51,13 @@ export default class Main {
         [ServerStatus.OFFLINE]: '🔴',
       }
 
-      await channel.setName(`${emoji} | ${serverStatus}`);
+      const name = `${emoji[serverStatus]} | ${serverStatus}`
+
+      await channel.setName(name);
     });
 
     this.client.login(process.env.BOT_TOKEN);
   }
 }
+
+new Main();
