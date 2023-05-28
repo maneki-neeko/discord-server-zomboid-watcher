@@ -6,7 +6,7 @@ export default class ServerServiceImpl implements ServerService {
     private readonly BASE_URL = "https://api.battlemetrics.com/servers/";
 
 
-    public async getServerById(id: String) {
+    public async getServerById(id: string) {
         try {
             const serverInfo = await axios.get<Server>(this.BASE_URL + id);
 

@@ -4,13 +4,13 @@ export enum ServerStatus {
 }
 
 export class ServerAttributes {
-  id: String;
+  id: string;
   status: ServerStatus;
 }
 
 export class ServerData {
-  id: String;
-  type: String;
+  id: string;
+  type: string;
   attributes: ServerAttributes;
 }
 
