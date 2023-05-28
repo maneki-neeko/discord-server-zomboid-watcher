@@ -1,7 +1,6 @@
-import axios from 'axios';
 import { Client, Guild, Intents, PartialTypes } from 'discord.js';
 import { Inject } from 'typescript-ioc';
-const dotenv = require('dotenv');
+import * as dotenv from 'dotenv';
 
 import ServerService from './repository/battle_metrics/server/impl/ServerServiceImpl';
 import { ServerStatus } from './repository/battle_metrics/models/Server';
@@ -9,9 +8,9 @@ import { ServerStatus } from './repository/battle_metrics/models/Server';
 dotenv.config();
 
 export default class Main {
-  private readonly client: Client;
-
-  private readonly CHANNEL_ID = '1112241335957721159';
+  private client: Client;
+  
+  private readonly CHANNEL_ID = '825085735718879276';
   private readonly SERVER_ID = '825085735718879272';
   private readonly ZOMBOID_SERVER_ID = "20718872";
   private readonly INTENTS = [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.MESSAGE_CONTENT]
@@ -31,7 +30,7 @@ export default class Main {
 
   private async start() {
     this.client.on('ready', async () => {
-      console.log(`Logged in as ${this.client.user!.tag}!`);
+      console.log(`Logged in as ${this.client.user?.tag}!`);
 
       const guild = this.client.guilds.cache.get(this.SERVER_ID) as Guild;
 
@@ -51,7 +50,8 @@ export default class Main {
         [ServerStatus.OFFLINE]: '🔴',
       }
 
-      const name = `${emoji[serverStatus]} | ${serverStatus}`
+      const name = `${emoji[serverStatus]}┃${serverStatus}`.toUpperCase();
+      console.log(name);
 
       await channel.setName(name);
     });
