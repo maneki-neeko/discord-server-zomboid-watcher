@@ -3,17 +3,17 @@ export enum ServerStatus {
   OFFLINE = 'offline',
 }
 
-export class ServerAttributes {
+export interface ServerAttributes {
   id: string;
   status: ServerStatus;
 }
 
-export class ServerData {
+export interface ServerData {
   id: string;
   type: string;
   attributes: ServerAttributes;
 }
 
-export default class Server {
+export default interface Server {
   data: ServerData;
 }

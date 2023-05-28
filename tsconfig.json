@@ -1,9 +1,10 @@
 {
-    "compilerOptions": {
-      "experimentalDecorators": true,
-      "emitDecoratorMetadata": true,
-      "target": "ES2022",
-      "moduleResolution": "node"
-    }
+  "compilerOptions": {
+    "strictPropertyInitialization": false,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "moduleResolution": "node",
+    "target": "ES6"
   }
-  
+}
