@@ -24,4 +24,10 @@ export default class DiscordServiceImpl implements DiscordService {
 
         return channel.data;
     }
+
+    sendMessage = async (channelId: string, message: string): Promise<void> => {
+        const body = { content: message };
+
+        await this.api.post(`${this.CHANNELS_ENDPOINT}/${channelId}/messages`, body);
+    }
 }
